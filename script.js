@@ -2,7 +2,7 @@
 const canvas = document.querySelector('canvas.webgl');
 
 // Vertex and fragment shaders for the wireframe
-const vertexShader = `
+const vertexShader = /* glsl */ `
 attribute vec3 barycentric;
 
 varying vec3 vBarycentric;
@@ -15,7 +15,7 @@ void main() {
 }
 `;
 
-const fragmentShader = `
+const fragmentShader = /* glsl */ `
 uniform vec3 lineColor;
 uniform float lineThickness;
 uniform vec3 faceColor;
