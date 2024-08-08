@@ -119,7 +119,7 @@ const material = new THREE.ShaderMaterial({
 });
 
 // Create a cube geometry
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
 createBarycentricGeometry(geometry);
 
 // Create a mesh with the cube geometry and shader material
@@ -143,6 +143,30 @@ loader.load('./static/frame/White Pawn.glb', function (gltf) {
     scene.add(model);
 }, undefined, function (error) {
     console.error(error);
+});
+
+
+// Set up dat.GUI
+const gui = new dat.GUI();
+
+// Parameters object for GUI
+const params = {
+    lineColor: [255, 187, 255], // RGB array for color picker
+    lineThickness: 2.5,
+    faceColor: [255, 0, 0] // RGB array for color picker
+};
+
+// Add GUI controls
+gui.addColor(params, 'lineColor').name('Line Color').onChange((value) => {
+    material.uniforms.lineColor.value.setRGB(value[0] / 255, value[1] / 255, value[2] / 255);
+});
+
+gui.add(params, 'lineThickness', 0.1, 10).name('Line Thickness').onChange((value) => {
+    material.uniforms.lineThickness.value = value;
+});
+
+gui.addColor(params, 'faceColor').name('Face Color').onChange((value) => {
+    material.uniforms.faceColor.value.setRGB(value[0] / 255, value[1] / 255, value[2] / 255);
 });
 
 // Handle window resize
